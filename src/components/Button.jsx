@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import styled from "styled-components"
 
 
@@ -77,3 +78,9 @@ const ButtonStyled = styled.button`
         animation-play-state: paused;
     }
 `
+
+Button.propTypes = {
+    name: PropTypes.string.isRequired,
+    icon: PropTypes.element,
+    onClick: PropTypes.func
+}
