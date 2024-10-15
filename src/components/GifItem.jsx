@@ -35,7 +35,7 @@ const GiffStyled = styled.div`
                     ${(props) => props.theme.colorYellow},    
                     ${(props) => props.theme.colorGreen2}
                 );
-                -webkit-background-clip: text;
+                background-clip: text;
                 -webkit-text-fill-color: transparent;
                 transition: all .3s ease-in-out;
             }
