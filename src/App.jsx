@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useTheme } from "./context/themeContext";
-import { Button, Header } from "./components";
+import { Button, Header, Trending } from "./components";
 
 
 function App() {
@@ -24,6 +24,9 @@ function App() {
           icon={<i className="fa-solid fa-shuffle"></i>}
         />
       </div>
+      <main>
+        <Trending />
+      </main>
     </AppStyled>
   )
 }
@@ -38,6 +41,10 @@ const AppStyled = styled.div`
     gap: 4rem;
     margin-top: 4rem;
     margin-bottom: 2rem;
+  }
+
+  main {
+    padding: 2rem 8rem;
   }
 `;
 

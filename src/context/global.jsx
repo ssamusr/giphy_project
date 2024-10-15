@@ -34,13 +34,10 @@ export const GlobalProvider = ({ children }) => {
         getTrending()
     }, [])
     
-
-
-
-    console.log(state)
-
   return (
-    <GlobalContext.Provider value={'Hellooooo'}>
+    <GlobalContext.Provider value={{
+        ...state
+    }}>
         { children }
     </GlobalContext.Provider>
   )
