@@ -2,9 +2,13 @@ import PropTypes from "prop-types"
 import { useState } from "react"
 import styled from "styled-components"
 import { Modal } from "./Modal"
+import { useGlobal } from "../context/global"
+import { Loader } from "./Loader"
 
 
 export const GifItem = ({ id, title, embed_url, url: link, images: { original: { url }} }) => {
+
+    const { loading } = useGlobal()
 
     //state
     const [modal, setModal] = useState(false)
@@ -13,12 +17,16 @@ export const GifItem = ({ id, title, embed_url, url: link, images: { original: {
     <GiffStyled>
         { modal && <Modal title={title} link={link} embed_url={embed_url} giff={url} setModal={setModal} /> }
 
-        <div className="gif" onDoubleClick={() => { setModal(true) }}>
-            <img src={ url } alt={ title } />
-            <div className="love">
-                <i className="fa-solid fa-heart"></i>
+        {
+            loading 
+            ? <Loader />
+            : <div className="gif" onDoubleClick={() => { setModal(true) }}>
+                <img src={ url } alt={ title } />
+                <div className="love">
+                    <i className="fa-solid fa-heart"></i>
+                </div>
             </div>
-        </div>
+        }
     </GiffStyled>
   )
 }
