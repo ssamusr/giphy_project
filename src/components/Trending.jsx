@@ -2,12 +2,14 @@ import styled from "styled-components"
 import { useGlobal } from "../context/global"
 import { GifItem } from "./GifItem"
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import { Loader } from "./Loader"
+
 
 const trend = <i className="fa-solid fa-arrow-trend-up"></i>
 
 export const Trending = () => {
 
-    const { trending } = useGlobal()
+    const { trending, loading } = useGlobal()
     console.log(trending)
 
     const breakpointColumnsObj = {
@@ -20,6 +22,11 @@ export const Trending = () => {
   return (
     <TrendingStyled>
       <h2>{trend} Trending</h2>
+
+      {
+        loading && <Loader />
+      }
+
       <ResponsiveMasonry columnsCountBreakPoints={breakpointColumnsObj}>
         <Masonry
           gutter=".7rem"
