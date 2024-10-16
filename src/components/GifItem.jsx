@@ -1,9 +1,9 @@
-import PropTypes from "prop-types"
 import { useState } from "react"
-import styled from "styled-components"
+import PropTypes from "prop-types"
 import { Modal } from "./Modal"
-import { useGlobal } from "../context/global"
 import { Loader } from "./Loader"
+import { useGlobal } from "../context/global"
+import styled from "styled-components"
 
 
 export const GifItem = ({ id, title, embed_url, url: link, images: { original: { url }} }) => {

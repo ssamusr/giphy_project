@@ -7,7 +7,7 @@ export const Button = ({ name, icon, onClick }) => {
 
 
   return (
-    <ButtonStyled>
+    <ButtonStyled onClick={onClick}>
         <span>
             { icon }
             { name }
