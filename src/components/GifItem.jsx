@@ -1,12 +1,19 @@
 import PropTypes from "prop-types"
+import { useState } from "react"
 import styled from "styled-components"
+import { Modal } from "./Modal"
 
 
 export const GifItem = ({ id, title, embed_url, url: link, images: { original: { url }} }) => {
+
+    //state
+    const [modal, setModal] = useState(false)
     
   return (
     <GiffStyled>
-        <div className="gif">
+        { modal && <Modal title={title} link={link} embed_url={embed_url} giff={url} setModal={setModal} /> }
+
+        <div className="gif" onDoubleClick={() => { setModal(true) }}>
             <img src={ url } alt={ title } />
             <div className="love">
                 <i className="fa-solid fa-heart"></i>
