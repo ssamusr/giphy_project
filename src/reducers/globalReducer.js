@@ -1,4 +1,4 @@
-import { GET_RANDOM, GET_TRENDING, LOADING } from "../utils/globalActions"
+import { GET_RANDOM, GET_SEARCH, GET_TRENDING, LOADING } from "../utils/globalActions"
 
 export const globalReducer = (state, action) => {
 
@@ -21,6 +21,14 @@ export const globalReducer = (state, action) => {
                 ...state,
                 loading: false,
                 random: action.payload
+            }
+        }
+
+        case GET_SEARCH: {
+            return {
+                ...state,
+                loading: false,
+                searchResults: action.payload
             }
         }
             

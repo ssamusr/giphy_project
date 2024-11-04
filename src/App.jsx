@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useTheme } from "./context/themeContext";
-import { Button, Header, Random, Trending } from "./components";
+import { Button, Header, Random, Search, Trending } from "./components";
 import { useState } from "react";
 import { useGlobal } from "./context/global";
 
@@ -25,7 +25,7 @@ function App() {
         return <Random />
       
       case 'search':
-        return <Trending />
+        return <Search />
 
       default:
         return <Trending />
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <AppStyled theme={theme}>
-      <Header />
+      <Header setRendered={setRendered} />
       <div className="fetch-btns">
         <Button 
           name={'Liked'}

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from "react"
 import PropTypes from "prop-types"
 import { globalReducer } from "../reducers/globalReducer"
 import axios from "axios"
-import { GET_RANDOM, GET_TRENDING, LOADING } from "../utils/globalActions"
+import { GET_RANDOM, GET_SEARCH, GET_TRENDING, LOADING } from "../utils/globalActions"
 
 const apiKey = import.meta.env.VITE_API_KEY
 const baseUrl = 'https://api.giphy.com/v1/gifs'
@@ -37,6 +37,14 @@ export const GlobalProvider = ({ children }) => {
         dispatch({ type: GET_RANDOM, payload: res.data.data})
     }
 
+    //search giff
+    const searchGiffs = async(query) => {
+        dispatch({ type: LOADING })
+        const res = await axios.get(`${baseUrl}/search?api_key=${apiKey}&q=${query}&limit=10`)
+
+        dispatch({ type: GET_SEARCH, payload: res.data.data})
+    }
+
     //Initial Renders
     useEffect(() => {
         getTrending()
@@ -47,6 +55,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider value={{
         ...state,
         getRandomGiff,
+        searchGiffs
     }}>
         { children }
     </GlobalContext.Provider>
