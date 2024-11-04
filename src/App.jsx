@@ -1,10 +1,14 @@
 import styled from "styled-components"
 import { useTheme } from "./context/themeContext";
-import { Button, Header, Trending } from "./components";
+import { Button, Header, Random, Trending } from "./components";
 import { useState } from "react";
+import { useGlobal } from "./context/global";
 
 
 function App() {
+
+  const { getRandomGiff } = useGlobal()
+
   const theme = useTheme()
 
   const [rendered, setRendered] = useState('trending')
@@ -18,7 +22,7 @@ function App() {
         return <Trending />
       
       case 'random': 
-        return <Trending />
+        return <Random />
       
       case 'search':
         return <Trending />
@@ -45,7 +49,10 @@ function App() {
         <Button 
           name={'Random Gif'}
           icon={<i className="fa-solid fa-shuffle"></i>}
-          onClick={() => {setRendered('random')}}
+          onClick={() => {
+            setRendered('random')
+            getRandomGiff()
+          }}
         />
       </div>
       <main>
