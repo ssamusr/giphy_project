@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from "react"
 import PropTypes from "prop-types"
 import { globalReducer } from "../reducers/globalReducer"
 import axios from "axios"
-import { GET_RANDOM, GET_SEARCH, GET_TRENDING, LOADING } from "../utils/globalActions"
+import { ADD_TO_FAVOURITES, GET_FAVOURITES, GET_RANDOM, GET_SEARCH, GET_TRENDING, LOADING } from "../utils/globalActions"
 
 const apiKey = import.meta.env.VITE_API_KEY
 const baseUrl = 'https://api.giphy.com/v1/gifs'
@@ -45,17 +45,54 @@ export const GlobalProvider = ({ children }) => {
         dispatch({ type: GET_SEARCH, payload: res.data.data})
     }
 
+    // save to favs
+    const saveToFavourites = (gif) => {
+        const storedItems = JSON.parse(window.localStorage.getItem('myFavourites')) || []
+
+        const existingItem = storedItems.find( item => item.id === gif.id)
+
+        if(!existingItem) {
+            const items = [...storedItems, gif]
+            window.localStorage.setItem('myFavourites', JSON.stringify(items))
+            dispatch({ type: ADD_TO_FAVOURITES, payload: gif})
+            alert('Added to favs')
+        } else {
+            alert('Already exist')
+        }
+    }
+
+    const removeFromLocalStorage = (gif) => {
+        const storedItems = JSON.parse(window.localStorage.getItem('myFavourites')) || []
+
+        const items = storedItems.filter((item) => item.id !== gif.id)
+        window.localStorage.setItem('myFavourites', JSON.stringify(items))
+
+        //get updated list
+
+        getFromLocalStorage()
+    }
+
+    const getFromLocalStorage = () => {
+        const storedItems = JSON.parse(window.localStorage.getItem('myFavourites')) || []
+
+        dispatch({ type: GET_FAVOURITES, payload: storedItems})
+
+    }
+
     //Initial Renders
     useEffect(() => {
         getTrending()
         getRandomGiff()
+        getFromLocalStorage()
     }, [])
     
   return (
     <GlobalContext.Provider value={{
         ...state,
         getRandomGiff,
-        searchGiffs
+        searchGiffs,
+        saveToFavourites,
+        removeFromLocalStorage
     }}>
         { children }
     </GlobalContext.Provider>

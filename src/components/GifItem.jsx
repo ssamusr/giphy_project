@@ -6,9 +6,9 @@ import { useGlobal } from "../context/global"
 import styled from "styled-components"
 
 
-export const GifItem = ({ id, title, embed_url, url: link, images: { original: { url }} }) => {
+export const GifItem = ({ id, title, embed_url, rendered, url: link, images: { original: { url }} }) => {
 
-    const { loading } = useGlobal()
+    const { loading, saveToFavourites, removeFromLocalStorage } = useGlobal()
 
     //state
     const [modal, setModal] = useState(false)
@@ -22,8 +22,32 @@ export const GifItem = ({ id, title, embed_url, url: link, images: { original: {
             ? <Loader />
             : <div className="gif" onDoubleClick={() => { setModal(true) }}>
                 <img src={ url } alt={ title } />
-                <div className="love">
-                    <i className="fa-solid fa-heart"></i>
+                <div 
+                    className="love" 
+                    onClick={() => {
+
+                        if(rendered === 'liked') {
+                            removeFromLocalStorage({
+                                id,
+                                title,
+                                url: link,
+                                images: {
+                                    original: {url}
+                                }
+                            })
+                        } else {
+                            saveToFavourites({
+                                id,
+                                title,
+                                url: link,
+                                images: {
+                                    original: {url}
+                                }
+                            })
+                        }
+                    }}
+                >
+                    <i className={rendered === 'liked' ? 'fa-solid fa-x' : "fa-solid fa-heart"}></i>
                 </div>
             </div>
         }

@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { useTheme } from "../context/themeContext"
 import { useState } from "react"
 import { useGlobal } from "../context/global"
 

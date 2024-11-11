@@ -1,9 +1,8 @@
 import styled from "styled-components"
 import { useTheme } from "./context/themeContext";
-import { Button, Header, Random, Search, Trending } from "./components";
+import { Button, Favourites, Header, Random, Search, Trending } from "./components";
 import { useState } from "react";
 import { useGlobal } from "./context/global";
-
 
 function App() {
 
@@ -16,7 +15,7 @@ function App() {
   const content = () => {
     switch(rendered) {
       case 'liked': 
-      return <Trending />
+      return <Favourites rendered={rendered} />
 
       case 'trending':
         return <Trending />

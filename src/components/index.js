@@ -1,4 +1,5 @@
 export * from './Button'
+export * from './Favourites'
 export * from './GifItem'
 export * from './Header'
 export * from './Loader'
